@@ -1,14 +1,15 @@
 // src/server/router/index.ts
-import { createRouter } from "./context";
-import superjson from "superjson";
+import { createRouter } from './context'
+import superjson from 'superjson'
+import fetch from 'node-fetch'
 
-import { exampleRouter } from "./example";
-import { authRouter } from "./auth";
+import { roomRouter } from './room'
+
+if (!global.fetch) (global.fetch as any) = fetch
 
 export const appRouter = createRouter()
   .transformer(superjson)
-  .merge("example.", exampleRouter)
-  .merge("auth.", authRouter);
+  .merge('room.', roomRouter)
 
 // export type definition of API
-export type AppRouter = typeof appRouter;
+export type AppRouter = typeof appRouter
